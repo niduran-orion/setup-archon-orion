@@ -23,38 +23,6 @@ Este documento te guiará paso a paso para configurar un entorno de desarrollo c
    docker-compose --version
    ```
 
-#### macOS:
-1. Descarga Docker Desktop para Mac desde [docker.com](https://www.docker.com/products/docker-desktop)
-2. Arrastra Docker a la carpeta Applications
-3. Abre Docker desde Applications
-4. Verifica la instalación:
-   ```bash
-   docker --version
-   docker-compose --version
-   ```
-
-#### Linux (Ubuntu/Debian):
-```bash
-# Actualizar paquetes
-sudo apt update
-
-# Instalar Docker
-sudo apt install docker.io docker-compose
-
-# Agregar usuario al grupo docker
-sudo usermod -aG docker $USER
-
-# Reiniciar sesión o ejecutar
-newgrp docker
-
-# Iniciar Docker
-sudo systemctl start docker
-sudo systemctl enable docker
-
-# Verificar instalación
-docker --version
-docker-compose --version
-```
 
 ### 2. Instalación de Visual Studio Code
 
@@ -62,23 +30,6 @@ docker-compose --version
 1. Ve a [code.visualstudio.com](https://code.visualstudio.com/)
 2. Descarga la versión para tu sistema operativo
 3. Ejecuta el instalador y sigue las instrucciones
-
-#### Opción 2: Línea de Comandos
-
-**Windows (usando Chocolatey):**
-```powershell
-choco install vscode
-```
-
-**macOS (usando Homebrew):**
-```bash
-brew install --cask visual-studio-code
-```
-
-**Linux (Ubuntu/Debian):**
-```bash
-sudo snap install code --classic
-```
 
 ### 3. Preparación del Proyecto
 
@@ -187,30 +138,28 @@ docker-compose up -d --build
 - La extensión Cline debería aparecer en tu barra lateral
 - Busca el ícono de Cline en la barra de actividades
 
-### 10. Configuración de MCP en Cline
+### 8. Configuración de MCP en Cline
 
 #### Configurar la conexión MCP:
 1. Abre Cline en VS Code
-2. Ve a la configuración de Cline
-3. Configura los siguientes parámetros de MCP:
+2. Ve a la configuración de Cline (Settings)
+3. Busca la sección de **MCP Servers** o **Model Context Protocol**
+4. Agrega la siguiente configuración:
    ```json
    {
-     "mcp": {
-       "servers": {
-         "archon": {
-           "command": "node",
-           "args": ["path/to/archon/mcp-server.js"],
-           "env": {
-             "SUPABASE_URL": "tu_project_url_aqui",
-             "SUPABASE_SERVICE_KEY": "tu_service_key_aqui"
-           }
-         }
+     "mcpServers": {
+       "archon": {
+         "command": "npx",
+         "args": [
+           "mcp-remote",
+           "http://localhost:8051/mcp"
+         ]
        }
      }
    }
    ```
-4. Guarda la configuración
-5. Reinicia Cline para aplicar los cambios
+5. Guarda la configuración
+6. Reinicia Cline para aplicar los cambios
 
 ## ✅ Verificación de la Instalación
 
@@ -268,17 +217,3 @@ chmod -R 755 ~/archon-project
 - [Documentación de Cline](https://github.com/cline/cline)
 - [Repositorio de Archon](https://github.com/coleam00/archon)
 
-## 🤝 Contribución
-
-Si encuentras algún problema con esta configuración o tienes sugerencias de mejora, por favor:
-1. Abre un issue en el repositorio
-2. Propón una mejora via Pull Request
-3. Actualiza esta documentación según sea necesario
-
-## 📄 Licencia
-
-Este proyecto sigue la licencia del repositorio original de Archon.
-
----
-
-**¡Felicitaciones!** 🎉 Has configurado exitosamente tu stack tecnológico completo con Archon, Docker, Supabase y Cline MCP.
